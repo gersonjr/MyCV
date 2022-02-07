@@ -1,0 +1,155 @@
+---
+name: Gerson de Oliveira
+# surname: Gerson de Oliveira
+position: "Postdoctoral Researcher"
+profilepic: "/Users/gersonjr/OneDrive - University of Guelph/meus_trabalhos/CV/GOJ.jpeg"
+address: | 
+         | 78 College Ave W, Guelph, Canada 
+phone: +1 226 332 0574
+email: "gersonjr@gmail.com"
+twitter: GersonOJ
+github: gersonjr
+linkedin: gersonojr
+# aboutme: "I have recently discovered Comet Dibiasky that is approximately 10-15km in size, and based on my orbital calculations is estimated to strike Earth in 6 months and 14 days"
+date: "`r format(Sys.time(), '%B %Y')`"
+headcolor: 009ACD       #414141     HEX code
+linestretch: 1.25
+#docname: "curriculum vitae"
+output: 
+  vitae::awesomecv:
+    page_total: true
+    keep_tex: false
+    # theme: "classic"
+always_allow_html: yes
+header-includes:
+  \usepackage{float}
+  \usepackage{multicol}
+  \usepackage{colortbl}
+  \arrayrulecolor{white}
+  \usepackage{hhline}
+  \definecolor{light-gray}{gray}{0.95}
+editor_options: 
+  chunk_output_type: console
+knit: (function(inputFile, encoding) {
+  rmarkdown::render('CV_GO.Rmd', encoding = encoding, output_dir = "/Users/gersonjr/OneDrive - University of Guelph/meus_trabalhos/CV") })
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(vitae)
+library(tibble)
+library(dplyr)
+library(readxl)
+library(here)
+library(fontawesome)
+library(kableExtra)
+```
+
+```{r functions}
+readExcelSheets <- function(filename){
+  # read all sheets in .xlsx 
+  all <- readxl::excel_sheets(filename)
+  
+  # import each sheet into a list using readxl::read_excel
+  list <- lapply(all, function(x) readxl::read_excel(filename, sheet = x))
+  
+  # save sheet name for each sheet (list)
+  names(list) <- all
+  
+  # breaks up list and creates a dataframe for each sheet with df names matching sheet names
+  list2env(list, envir = .GlobalEnv)
+}
+```
+
+```{r load-data, message=FALSE, results='hide'}
+filename <- here::here("/Users/gersonjr/Library/CloudStorage/OneDrive-UniversityofGuelph/meus_trabalhos/CV", "GO_vitae_data.xlsx")
+readExcelSheets(filename)
+```
+
+\faIcon{address-card} SUMARY
+============================================
+
+\footnotesize
+
+Postdoctoral researcher in Animal Breeding at the University of Guelph, with broad experience in quantitative and genomic analyses, working with large datasets and statistical software. Experience in the analysis, interpretation, and application of genetic data for the implementation and support of commercial breeding programs. Creates and maintains positive and open working relationships with both internal and external individuals and groups.
+ 
+
+\faIcon{briefcase} Professional Experience
+============================================
+
+```{r experience, eval = T}
+# tribble(
+#   ~ Year, ~ Type,  ~ Institution, ~ Where, ~ Desc,
+#   "2018-2021", "Postdoctoral Researcher", "University of Guelph", "Guelph, ON, Canada",
+#   "Postdoctoral researcher working with animal breeding genetics. Leading a project that aims to analyze and compare the benefits of various strategies and novel tools to optimize the Canadian dairy cattle breeding program.",
+#   "2020-2021", "Geneticist", "Semex", "Guelph, ON, Canada", "One year contract with Semex working part-time (9 hours/week) as a Geneticist on Solution Department.",
+#   "2017-2018", "Genomic Supervisor", "CRV", "Sertaozinho, SP, Brazil", "Responsible for the genomic database and technical decisions related to company breeding program. Generate and implement innovative solutions and promote research partnership with academic groups, maintaining the company’s commanding presence in the marketplace.
+# Effectively represent the company through various channels including written articles in journals, team meetings with farmers, partnering with universities, and giving presentations at conferences."
+# ) %>% 
+#   detailed_entries(when = Year, what = Type, where = Where, why = Desc)
+
+experience %>% 
+  detailed_entries(what = role,
+                   when = dates,
+                   with = institution,
+                   where = where,
+                   why = details)
+
+```
+
+\faIcon{university} Education
+==================================
+
+```{r education}
+# tribble(
+#   ~ Year, ~ Degree,  ~ Institution, ~ Where, ~Desc,
+#   "2013-2017", "Ph.D. in Animal Breeding",  "University of Sao Paulo", "SP, Brazil",
+#   list("Thesis focused on genomic analyses, exploring the genomic background of female reproductive traits of beef cattle, in partnership with the University of Copenhagen.", "Expansion of genomic project through utilization of current methodologies and computer software during a year internship at Iowa State University – USA, supervised by Dr. Dorian J. Garrick.",
+# "Additional project analyzing genomic imputation strategies for dairy crossbred cattle in partnership with EMBRAPA – Brazil."),
+#   "2011-2013", "Master in Animal Breeding", "University of Sao Paulo", "SP, Brazil", 
+#   list("Master’s project focused on quantitative genetics, working in partnership with a commercial animal breeding program.", "Strategies to include animals without pedigree information were analyzed, successfully generating a strategy used today by a commercial animal breeding company in Brazil." ) ) %>% 
+#   detailed_entries(when = Year, what = Degree, with = Institution, where = Where, why = Desc)
+
+education %>% 
+  detailed_entries(what = degree,
+                   when = year,
+                   with = institution,
+                   where = where,
+                   why = details)
+```
+
+
+\faIcon{cogs} Skills
+================================
+```{r skills}
+skills %>%
+  brief_entries(when = skill)
+```
+
+<!-- ```{r techtable, results='markup'} -->
+<!-- tribble( -->
+<!--    ~`Coding Languages`, -->
+<!--   "R -- Bash -- AWK -- SQL" -->
+<!-- ) %>% -->
+<!--   kable(booktabs = T, escape = F, format = "latex") %>%   # align = 'c', -->
+<!--   kable_styling(full_width = F, font_size = 12, latex_options = "HOLD_position") %>%  -->
+<!--   row_spec(0, bold = T, color = "#009acd") %>%  -->
+<!--   row_spec(1, bold = F, color = "#7f7f7f") # %>% -->
+<!--   # column_spec(column = 1:3, width = '4.75cm') -->
+<!-- ``` -->
+
+\faIcon{file} Publications (Last Five Years)
+===========================
+\footnotesize
+
+For a complete list of publications see [*my Google Scholar profile*](https://scholar.google.com/citations?user=9fJ65lgAAAAJ&hl=en).
+
+
+```{r}
+# knitr::write_bib(c("vitae", "tibble"), "Puplications.bib")
+bibliography_entries(here("/Users/gersonjr/Library/CloudStorage/OneDrive-UniversityofGuelph/meus_trabalhos/CV", "Publications.bib")) %>%
+  arrange(desc(issued))
+```
+
+\normalsize
